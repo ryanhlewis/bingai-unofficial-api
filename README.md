@@ -46,10 +46,16 @@ python file_path of server.py on your pc/dev env.
 * There is a single end-point only. It is available at `/chat`
 
 ```sh
-curl -XGET http://localhost:5001/chat?q=Write%20a%20python%20program%20to%20reverse%20a%20list
+curl -XGET http://localhost:5000/chat?q=Write%20a%20python%20program%20to%20reverse%20a%20list
 ```
 
 # Updates
 
 * [17 Feb 2023]: Initial release
 
+
+# Credit
+
+The boilerplate for this project is from Tolulade Ademisoye's
+[ChatGPT Unofficial API](https://github.com/Tolulade-A/chatgpt-unofficial-api). All code was respectively modified
+to work instead with Bing's AI.
