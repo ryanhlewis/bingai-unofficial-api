@@ -31,8 +31,8 @@ def is_logged_in():
     return get_input_box() is not None
 
 def is_loading_response() -> bool:
-    """See if the stop button is diabled, if it does, we're not loading"""
-    return PAGE.query_selector(".stop").is_enabled()
+    """See if the typing indicator has attribute cancelable, if it has, we're loading"""
+    return PAGE.query_selector("cib-typing-indicator").get_attribute("cancelable") is not None
 
 def send_message(message):
     # Send the message
@@ -43,6 +43,7 @@ def send_message(message):
 
 def get_last_message():
     """Get the latest message"""
+    time.sleep(7)
     while is_loading_response():
         time.sleep(0.25)
     page_elements = PAGE.query_selector_all("div[class*='ac-textBlock']")
@@ -59,7 +60,8 @@ def chat():
     # Bing recently made it require a "New topic"
     # after a few messages, so if that was in the response,
     # we click the button with aria label "New topic"
-    if "new topic" in response.lower():
+    # Bing also fails with "Let's start over" button on sensitive topic prompt
+    if "new topic" or "let's start over" in response.lower():
         print("New topic detected. Clicking button.")        
         PAGE.query_selector("button[aria-label='New topic']").click()
         print("Sending message: ", message)
