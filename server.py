@@ -60,7 +60,8 @@ def chat():
     # Bing recently made it require a "New topic"
     # after a few messages, so if that was in the response,
     # we click the button with aria label "New topic"
-    if "new topic" in response.lower():
+    # Bing also fails with "Let's start over" button on sensitive topic prompt
+    if "new topic" or "let's start over" in response.lower():
         print("New topic detected. Clicking button.")        
         PAGE.query_selector("button[aria-label='New topic']").click()
         print("Sending message: ", message)
